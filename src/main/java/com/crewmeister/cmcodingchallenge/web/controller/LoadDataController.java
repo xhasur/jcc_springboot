@@ -1,6 +1,6 @@
 package com.crewmeister.cmcodingchallenge.web.controller;
 
-import com.crewmeister.cmcodingchallenge.domain.dto.CurrencyDto;
+
 import com.crewmeister.cmcodingchallenge.domain.service.CurrencyService;
 import com.crewmeister.cmcodingchallenge.domain.service.ExchangeService;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController()
 @RequestMapping("/api")

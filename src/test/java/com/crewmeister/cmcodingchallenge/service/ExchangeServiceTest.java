@@ -88,7 +88,7 @@ public class ExchangeServiceTest {
     @Test
     @DisplayName("Test getLoadRates but the service is never called because the page is different or maybe other page")
     public void getLoadRates() {
-        when(loadDataService.getBankdocument(null)).thenReturn(Jsoup.parseBodyFragment("<td> Hello</td>"));
+        when(loadDataService.getBankDocument(null)).thenReturn(Jsoup.parseBodyFragment("<td> Hello</td>"));
         exchangeService.loadRates();
         verify(exchangeRepository, never() ).saveAll(anySet());
     }
@@ -96,7 +96,7 @@ public class ExchangeServiceTest {
     @Test
     @DisplayName("Test loadRates obtain the information when the page is correct")
     public void testLoadCurrenciesSavingItems() {
-        when(loadDataService.getBankdocument(null)).thenReturn(doc);
+        when(loadDataService.getBankDocument(null)).thenReturn(doc);
         exchangeService.loadRates();
         verify(exchangeRepository).saveAll(anySet());
     }

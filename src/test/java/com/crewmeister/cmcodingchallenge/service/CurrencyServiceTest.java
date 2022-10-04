@@ -66,7 +66,7 @@ public class CurrencyServiceTest {
     @Test
     @DisplayName("Test loadCurrencies")
     public void testLoadCurrencies() {
-        when(loadDataService.getBankdocument(null)).thenReturn(Jsoup.parseBodyFragment("<td> Hello</td>"));
+        when(loadDataService.getBankDocument(null)).thenReturn(Jsoup.parseBodyFragment("<td> Hello</td>"));
         currencyService.loadCurrencies();
         verify(currencyRepository, never() ).saveAll(anySet());
     }
@@ -74,7 +74,7 @@ public class CurrencyServiceTest {
     @Test
     @DisplayName("Test loadCurrencies")
     public void testLoadCurrenciesSavingItems() {
-        when(loadDataService.getBankdocument(null)).thenReturn(doc);
+        when(loadDataService.getBankDocument(null)).thenReturn(doc);
         currencyService.loadCurrencies();
         verify(currencyRepository).saveAll(anySet());
     }

@@ -34,7 +34,7 @@ public class CurrencyService {
     public void loadCurrencies() {
         LOGGER.info("loadCurrencies");
         Set<CurrencyDto> currencies = new HashSet<>();
-        Document doc = this.loadDataService.getBankdocument(url);
+        Document doc = this.loadDataService.getBankDocument(url);
         doc.select("table tbody tr")
                 .parallelStream()
                 //.peek(LOGGER::info)

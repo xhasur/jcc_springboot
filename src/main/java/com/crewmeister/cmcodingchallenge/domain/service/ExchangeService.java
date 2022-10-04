@@ -38,7 +38,7 @@ public class ExchangeService {
     @Transactional
     public void loadRates() {
         LOGGER.info("loadRates");
-        Document doc = this.loadDataService.getBankdocument(url);
+        Document doc = this.loadDataService.getBankDocument(url);
         doc.select("table tbody tr")
                 .parallelStream()
                 .forEach(( element -> {

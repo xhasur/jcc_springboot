@@ -2,8 +2,7 @@ package com.crewmeister.cmcodingchallenge.domain.service;
 
 import com.crewmeister.cmcodingchallenge.CmCodingChallengeApplication;
 import com.crewmeister.cmcodingchallenge.domain.dto.ExchangeDto;
-import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRateEntity;
-import lombok.extern.java.Log;
+import com.crewmeister.cmcodingchallenge.exception.CurrencyBusinessException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -14,7 +13,6 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,13 +23,13 @@ public class LoadDataService {
     private static Logger LOGGER = LogManager.getLogger(CmCodingChallengeApplication.class);
 
 
-    public  Document getBankdocument(String url) {
+    public  Document getBankDocument(String url) {
         Document doc = null;
         try {
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             LOGGER.error("Error loading page");
-            throw new RuntimeException(e);
+            throw new CurrencyBusinessException("Error loading page" +url);
         }
         return doc;
     }
@@ -53,7 +51,7 @@ public class LoadDataService {
                     .map(k  -> getExchangeRateEntities(currency, index, exchanges, k))
                     .collect(Collectors.toList()).get(0);
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            throw new CurrencyBusinessException("Error reading csv in URL" +url);
         }
     }
     /**

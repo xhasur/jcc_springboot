@@ -44,7 +44,7 @@ public class ExchangeController {
     }
 
 
-    @GetMapping("/euroconverter/{date}/")
+    @GetMapping("/euroconverter/{date}")
     public ResponseEntity<List<ExchangeDto>> getEuroConverter(@PathVariable("date")
                                                                      @DateTimeFormat(pattern = "yyyy-MM-dd")
                                                                      @Validated LocalDate date,

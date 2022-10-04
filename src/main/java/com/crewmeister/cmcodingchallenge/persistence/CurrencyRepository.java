@@ -19,7 +19,8 @@ public class CurrencyRepository implements ICurrencyRepository {
 
     private CurrencyMapper currencyMapper;
 
-    public CurrencyRepository(CurrencyCrudRepository currencyCrudRepository, CurrencyMapper currencyMapper) {
+    public CurrencyRepository(CurrencyCrudRepository currencyCrudRepository,
+                              CurrencyMapper currencyMapper) {
         this.currencyCrudRepository = currencyCrudRepository;
         this.currencyMapper = currencyMapper;
     }

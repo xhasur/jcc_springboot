@@ -15,21 +15,26 @@ import java.util.List;
 
 @RestController()
 @RequestMapping("/api")
-public class CurrencyController {
+public class LoadDataController {
 
-    private static Logger LOGGER = LogManager.getLogger(CurrencyController.class);
+    private static Logger LOGGER = LogManager.getLogger(LoadDataController.class);
 
     private CurrencyService currencyService;
 
+    private ExchangeService exchangeService;
 
-    public CurrencyController(CurrencyService currencyService) {
+
+    public LoadDataController(CurrencyService currencyService, ExchangeService exchangeService) {
         this.currencyService = currencyService;
+        this.exchangeService = exchangeService;
     }
 
-    @GetMapping("/currencies")
-    public ResponseEntity<List<CurrencyDto>> getCurrencies() {
-        LOGGER.info("CurrencyController::getCurrencies");
-        return new ResponseEntity<>(currencyService.getAllCurrencies(), HttpStatus.OK);
+    @GetMapping("/loadData")
+    public ResponseEntity loadCurrencies() {
+        LOGGER.info("CurrencyController::loadCurrencies");
+        currencyService.loadCurrencies();
+        exchangeService.loadRates();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

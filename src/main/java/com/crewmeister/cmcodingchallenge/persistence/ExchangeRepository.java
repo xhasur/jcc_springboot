@@ -20,7 +20,8 @@ public class ExchangeRepository implements IExchangeRepository {
 
     private ExchangeRateMapper exchangeRateMapper;
 
-    public ExchangeRepository(ExchangeCrudRepository exchangeCrudRepository, ExchangeRateMapper exchangeRateMapper) {
+    public ExchangeRepository(ExchangeCrudRepository exchangeCrudRepository,
+                              ExchangeRateMapper exchangeRateMapper) {
         this.exchangeCrudRepository = exchangeCrudRepository;
         this.exchangeRateMapper = exchangeRateMapper;
     }

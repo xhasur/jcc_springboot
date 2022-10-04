@@ -15,14 +15,6 @@ public class CmCodingChallengeApplication implements CommandLineRunner {
 
 	private static Logger LOGGER = LogManager.getLogger(CmCodingChallengeApplication.class);
 
-    private CurrencyService currencyService;
-
-	private ExchangeService exchangeService;
-
-	public CmCodingChallengeApplication(CurrencyService currencyService, ExchangeService exchangeService) {
-		this.currencyService = currencyService;
-		this.exchangeService = exchangeService;
-	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(CmCodingChallengeApplication.class, args);
@@ -30,11 +22,6 @@ public class CmCodingChallengeApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		this.currencyService.loadCurrencies();
-		this.exchangeService.loadRates();
-		// LoadDataService.readExchangeFromCsv("https://api.statistiken.bundesbank.de/rest/download/BBEX3/D.AUD.EUR.BB.AC.000?format=csv&lang=en");
-		// this.currencyService.getAllCurrencies().forEach(LOGGER::info);
-		//this.exchangeService.getAllCurriencyExchanges().forEach(LOGGER::info);
 	}
 
 

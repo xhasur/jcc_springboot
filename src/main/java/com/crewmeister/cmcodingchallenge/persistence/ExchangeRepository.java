@@ -5,6 +5,7 @@ import com.crewmeister.cmcodingchallenge.domain.repository.IExchangeRepository;
 import com.crewmeister.cmcodingchallenge.persistence.crud.ExchangeCrudRepository;
 import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRateEntity;
 import com.crewmeister.cmcodingchallenge.persistence.mapper.ExchangeRateMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -37,6 +38,10 @@ public class ExchangeRepository implements IExchangeRepository {
     @Override
     public List<ExchangeDto> getAllExchangesRates() {
         return exchangeRateMapper.toExchanges(this.exchangeCrudRepository.findAll());
+    }
+
+    public List<ExchangeDto> getAllExchangesRatesPageable(int page, int size) {
+        return exchangeRateMapper.toExchanges(this.exchangeCrudRepository.findAll(PageRequest.of(page, size)).getContent());
     }
 
     @Override

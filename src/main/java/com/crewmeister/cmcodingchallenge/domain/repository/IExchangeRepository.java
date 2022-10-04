@@ -13,6 +13,8 @@ public interface IExchangeRepository {
 
     List<ExchangeDto> getAllExchangesRates();
 
+     List<ExchangeDto> getAllExchangesRatesPageable(int page, int size);
+
     List<ExchangeDto> getExchangeRatesForDate(LocalDate date);
 
     List<ExchangeDto> getEuroConverter(LocalDate date, Currency currency);

@@ -59,6 +59,10 @@ public class ExchangeService {
         return this.exchangeRepository.getAllExchangesRates();
     }
 
+    public List<ExchangeDto> getAllExchangesRates(int page, int size) {
+        return this.exchangeRepository.getAllExchangesRatesPageable(page, size);
+    }
+
     public List<ExchangeDto> getExchangeRatesForDate(LocalDate date) {
         return this.exchangeRepository.getExchangeRatesForDate(date);
     }

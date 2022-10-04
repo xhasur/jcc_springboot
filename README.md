@@ -21,6 +21,9 @@ http://localhost:8080/api/currencies
 
 http://localhost:8080/api/currencyexchanges
 
+**_This is another endpoint to check this with pageable implementation -->_**
+
+http://localhost:8080/api/currencyexchanges/pageable?page=1&size=20
 
 - As a client, I want to get the EUR-FX exchange rate at particular day
 

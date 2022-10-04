@@ -39,6 +39,16 @@ public class ExchangeController {
         return new ResponseEntity<>(exchangeService.getAllExchangesRates(), HttpStatus.OK);
     }
 
+    @GetMapping("/currencyexchanges/pageable")
+    @ApiOperation("Get all currencies exchanges pageable")
+    @ApiResponse(code =200, message = "OK")
+    public ResponseEntity<List<ExchangeDto>> getAllCurrenciesExchangesPageable(@RequestParam int page,
+                                                                               @RequestParam int size) {
+        LOGGER.info("ExchangeController::getAllCurrencies");
+
+        return new ResponseEntity<>(exchangeService.getAllExchangesRates(page, size), HttpStatus.OK);
+    }
+
     @GetMapping("/exchangerates/{date}")
     @ApiOperation("Get all currencies exchanges by date")
     @ApiResponse(code =200, message = "OK")

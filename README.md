@@ -54,3 +54,14 @@ Swagger Endpoint :
 ````shell script
 $ mvn spring-boot:run
 ````
+
+
+
+
+
+<img width="1233" alt="Captura de Pantalla 2022-10-04 a la(s) 4 22 05 p m" src="https://user-images.githubusercontent.com/12173428/193932745-f766623f-3909-4c3d-b0f1-741f944767bc.png">
+<img width="1373" alt="Captura de Pantalla 2022-10-04 a la(s) 4 22 56 p m" src="https://user-images.githubusercontent.com/12173428/193932750-880afb81-21b9-4be8-bdad-003ff7903516.png">
+<img width="1344" alt="Captura de Pantalla 2022-10-04 a la(s) 4 23 40 p m" src="https://user-images.githubusercontent.com/12173428/193932758-e31d21af-94bd-42c9-968f-30070585e0db.png">
+<img width="1297" alt="Captura de Pantalla 2022-10-04 a la(s) 4 23 53 p m" src="https://user-images.githubusercontent.com/12173428/193932766-8be5be01-4f0b-4e5b-9fd9-a883367a6ddb.png">
+<img width="1367" alt="Captura de Pantalla 2022-10-04 a la(s) 4 24 05 p m" src="https://user-images.githubusercontent.com/12173428/193932768-39768655-040f-4e9f-9e2c-1b8dfcd9a342.png">
+

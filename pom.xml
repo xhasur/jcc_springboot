@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.crewmeister</groupId>
 	<artifactId>cm-coding-challenge</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>cm-coding-challenge</name>
 	<description>The java coding challenge for developer candidates applying at Crewmeister</description>
 
@@ -29,12 +29,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>

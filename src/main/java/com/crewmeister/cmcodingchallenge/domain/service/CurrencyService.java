@@ -1,9 +1,7 @@
 package com.crewmeister.cmcodingchallenge.domain.service;
 
-import com.crewmeister.cmcodingchallenge.domain.dto.CurrencyConversionRates;
 import com.crewmeister.cmcodingchallenge.domain.dto.CurrencyDto;
 import com.crewmeister.cmcodingchallenge.domain.repository.ICurrencyRepository;
-import com.crewmeister.cmcodingchallenge.persistence.entity.CurrencyEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;

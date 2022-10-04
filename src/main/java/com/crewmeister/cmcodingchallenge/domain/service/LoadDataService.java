@@ -37,6 +37,12 @@ public class LoadDataService {
     }
 
 
+    /**
+     * This methid read data from csv files
+     * @param url this param contain the url where el csv is located
+     * @param currency
+     * @return
+     */
     public  Set<ExchangeDto> readExchangeFromCsv(String url , Currency currency) {
         AtomicInteger index = new AtomicInteger();
         BufferedReader br = null;
@@ -50,7 +56,14 @@ public class LoadDataService {
             throw new RuntimeException(ex);
         }
     }
-
+    /**
+     * This methos help to build a set of ExchangeDto objects
+     * @param currency
+     * @param index
+     * @param exchanges
+     * @param k
+     * @return
+     */
     private Set<ExchangeDto> getExchangeRateEntities(Currency currency, AtomicInteger index, Set<ExchangeDto> exchanges, String k) {
         exchanges.remove(exchanges.size() - 1);
         index.set(index.get() + 1);
@@ -65,6 +78,7 @@ public class LoadDataService {
         }
         return exchanges;
     }
+
 
     public  Currency getCurrency(String currency) {
         try {

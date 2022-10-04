@@ -3,7 +3,6 @@ package com.crewmeister.cmcodingchallenge.domain.service;
 import com.crewmeister.cmcodingchallenge.domain.dto.ExchangeDto;
 import com.crewmeister.cmcodingchallenge.domain.repository.IExchangeRepository;
 import com.crewmeister.cmcodingchallenge.persistence.ExchangeRepository;
-import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRateEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Currency;
 import java.util.List;
 import java.util.Set;
 

@@ -2,6 +2,9 @@ package com.crewmeister.cmcodingchallenge.web.controller;
 
 import com.crewmeister.cmcodingchallenge.domain.dto.ExchangeDto;
 import com.crewmeister.cmcodingchallenge.domain.service.ExchangeService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,15 +32,20 @@ public class ExchangeController {
 
 
     @GetMapping("/currencyexchanges")
+    @ApiOperation("Get all currencies exchanges")
+    @ApiResponse(code =200, message = "OK")
     public ResponseEntity<List<ExchangeDto>> getAllCurrenciesExchanges() {
         LOGGER.info("ExchangeController::getAllCurrencies");
         return new ResponseEntity<>(exchangeService.getAllExchangesRates(), HttpStatus.OK);
     }
 
     @GetMapping("/exchangerates/{date}")
-    public ResponseEntity<List<ExchangeDto>> getExchangeRatesForDate(@PathVariable("date")
-                                                                            @DateTimeFormat(pattern = "yyyy-MM-dd")
-                                                                            @Validated LocalDate date) {
+    @ApiOperation("Get all currencies exchanges by date")
+    @ApiResponse(code =200, message = "OK")
+    public ResponseEntity<List<ExchangeDto>> getExchangeRatesForDate(@ApiParam(value = "Date of exchange currency", example = "1999-01-04")
+                                                                     @PathVariable("date")
+                                                                     @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                                     @Validated LocalDate date) {
         LOGGER.info("ExchangeController::getExchangeRatesForDate");
         return new ResponseEntity<>(exchangeService.getExchangeRatesForDate(date), HttpStatus.OK);
 
@@ -45,9 +53,12 @@ public class ExchangeController {
 
 
     @GetMapping("/euroconverter/{date}")
-    public ResponseEntity<List<ExchangeDto>> getEuroConverter(@PathVariable("date")
-                                                                     @DateTimeFormat(pattern = "yyyy-MM-dd")
-                                                                     @Validated LocalDate date,
+    @ApiOperation("Convert currency exchange to EUR by date")
+    @ApiResponse(code = 200, message = "OK")
+    public ResponseEntity<List<ExchangeDto>> getEuroConverter(@ApiParam(value = "Date of exchange currency", example = "1999-01-04")
+                                                              @PathVariable("date")
+                                                              @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                              @Validated LocalDate date,
                                                               @RequestParam(value = "currency", required = true) String currency,
                                                               @RequestParam(value = "amount", required = true) BigDecimal amount) {
 

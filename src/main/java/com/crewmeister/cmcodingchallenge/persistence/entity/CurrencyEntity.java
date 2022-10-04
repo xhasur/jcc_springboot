@@ -24,5 +24,5 @@ public class CurrencyEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private java.util.Currency currency;
+    private Currency currency;
 }

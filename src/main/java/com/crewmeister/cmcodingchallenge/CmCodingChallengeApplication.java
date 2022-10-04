@@ -32,11 +32,9 @@ public class CmCodingChallengeApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		this.currencyService.loadCurrencies();
 		this.exchangeService.loadRates();
-
-		LOGGER.info("==>");
 		// LoadDataService.readExchangeFromCsv("https://api.statistiken.bundesbank.de/rest/download/BBEX3/D.AUD.EUR.BB.AC.000?format=csv&lang=en");
 		// this.currencyService.getAllCurrencies().forEach(LOGGER::info);
-		this.exchangeService.getAllExchanges().forEach(LOGGER::info);
+		//this.exchangeService.getAllCurriencyExchanges().forEach(LOGGER::info);
 	}
 
 

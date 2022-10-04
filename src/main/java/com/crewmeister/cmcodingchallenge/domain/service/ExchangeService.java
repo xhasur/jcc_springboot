@@ -2,7 +2,7 @@ package com.crewmeister.cmcodingchallenge.domain.service;
 
 import com.crewmeister.cmcodingchallenge.domain.repository.IExchangeRepository;
 import com.crewmeister.cmcodingchallenge.persistence.ExchangeRepository;
-import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRate;
+import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRateEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -11,6 +11,10 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Currency;
 import java.util.List;
 import java.util.Set;
 
@@ -32,19 +36,19 @@ public class ExchangeService {
         this.exchangeRepository = exchangeRepository;
     }
 
+    @Transactional
     public void loadRates() {
         LOGGER.info("loadRates");
         Document doc = this.loadDataService.getBankdocument(url);
         doc.select("table tbody tr")
-                .stream()
-                //.peek(LOGGER::info)
+                .parallelStream()
                 .forEach(( element -> {
                     Elements tds = element.select("td");
                     if(tds.isEmpty()) return;
                     Element dtdDescription = tds.get(2).getElementsByAttribute("href").get(0);
                     String currencyName = tds.text().split("=")[1].split("... /")[0].trim();
                     String downloadCsvLink = dtdDescription.attr("href");
-                    Set<ExchangeRate> exchangeRates = this.loadDataService.readExchangeFromCsv(
+                    Set<ExchangeRateEntity> exchangeRates = this.loadDataService.readExchangeFromCsv(
                             downloadCsvLink,
                             this.loadDataService.getCurrency(currencyName));
                     this.exchangeRepository.saveAll(exchangeRates);
@@ -52,11 +56,21 @@ public class ExchangeService {
     }
 
 
-    public List<ExchangeRate> getAllExchanges() {
-        return this.exchangeRepository.getAllExchanges();
+    public List<ExchangeRateEntity> getAllExchangesRates() {
+        return this.exchangeRepository.getAllExchangesRates();
     }
 
-    public List<ExchangeRate> getAllCurrenciesByCurrency(String currency) {
-        return this.exchangeRepository.getAllCurrenciesByCurrency(currency);
+    public List<ExchangeRateEntity> getExchangeRatesForDate(LocalDate date) {
+        return this.exchangeRepository.getExchangeRatesForDate(date);
+    }
+
+    public List<ExchangeRateEntity> getEuroConverter(LocalDate date , String currency , BigDecimal amount) {
+        List<ExchangeRateEntity> allRatesByCurrency = this.exchangeRepository.getEuroConverter(date, this.loadDataService.getCurrency(currency));
+        if(!allRatesByCurrency.isEmpty()){
+            allRatesByCurrency.forEach(rate -> rate.setRate(rate.getRate().multiply(amount)));
+            return allRatesByCurrency;
+        }
+
+        return this.exchangeRepository.getEuroConverter(date, this.loadDataService.getCurrency(currency));
     }
 }

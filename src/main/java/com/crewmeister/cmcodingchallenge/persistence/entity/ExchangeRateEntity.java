@@ -9,17 +9,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Currency;
-import java.util.Date;
 
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExchangeRate {
+public class ExchangeRateEntity {
 
-    public ExchangeRate(Currency currency, String rate, String date, String description) {
+    public ExchangeRateEntity(Currency currency, BigDecimal rate, LocalDate date, String description) {
         this.currency = currency;
         this.rate = rate;
         this.date = date;
@@ -31,10 +31,9 @@ public class ExchangeRate {
     private Long id;
 
     private Currency currency;
+    private BigDecimal rate;
 
-    private String rate;
-
-    private String date;
+    private LocalDate date;
 
     private String description;
 

@@ -3,7 +3,6 @@ package com.crewmeister.cmcodingchallenge.domain.service;
 import com.crewmeister.cmcodingchallenge.domain.dto.CurrencyConversionRates;
 import com.crewmeister.cmcodingchallenge.domain.repository.ICurrencyRepository;
 import com.crewmeister.cmcodingchallenge.persistence.entity.CurrencyEntity;
-import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -12,6 +11,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -36,13 +36,13 @@ public class CurrencyService {
         currencyConversionRates.add(new CurrencyConversionRates(2.5));
         return currencyConversionRates;
     }
-
+    @Transactional
     public void loadCurrencies() {
         LOGGER.info("loadCurrencies");
         Set<CurrencyEntity> currencies = new HashSet<>();
         Document doc = this.loadDataService.getBankdocument(url);
         doc.select("table tbody tr")
-                .stream()
+                .parallelStream()
                 //.peek(LOGGER::info)
                 .forEach(( element -> {
                         Elements tds = element.select("td");

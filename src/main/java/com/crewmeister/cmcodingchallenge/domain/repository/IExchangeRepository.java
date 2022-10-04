@@ -1,15 +1,18 @@
 package com.crewmeister.cmcodingchallenge.domain.repository;
 
-import com.crewmeister.cmcodingchallenge.persistence.entity.CurrencyEntity;
-import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRate;
+import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRateEntity;
 
+import java.time.LocalDate;
+import java.util.Currency;
 import java.util.List;
 import java.util.Set;
 
 public interface IExchangeRepository {
-    void saveAll(Set<ExchangeRate> currencies);
+    void saveAll(Set<ExchangeRateEntity> currencies);
 
-    List<ExchangeRate> getAllExchanges();
+    List<ExchangeRateEntity> getAllExchangesRates();
 
-    List<ExchangeRate> getAllCurrenciesByCurrency(String currency);
+    List<ExchangeRateEntity> getExchangeRatesForDate(LocalDate date);
+
+    List<ExchangeRateEntity> getEuroConverter(LocalDate date, Currency currency);
 }

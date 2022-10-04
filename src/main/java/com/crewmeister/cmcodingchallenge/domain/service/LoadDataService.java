@@ -1,6 +1,7 @@
 package com.crewmeister.cmcodingchallenge.domain.service;
 
 import com.crewmeister.cmcodingchallenge.CmCodingChallengeApplication;
+import com.crewmeister.cmcodingchallenge.domain.dto.ExchangeDto;
 import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRateEntity;
 import lombok.extern.java.Log;
 import org.apache.logging.log4j.LogManager;
@@ -36,10 +37,10 @@ public class LoadDataService {
     }
 
 
-    public  Set<ExchangeRateEntity> readExchangeFromCsv(String url , Currency currency) {
+    public  Set<ExchangeDto> readExchangeFromCsv(String url , Currency currency) {
         AtomicInteger index = new AtomicInteger();
         BufferedReader br = null;
-        Set<ExchangeRateEntity> exchanges = new HashSet<>();
+        Set<ExchangeDto> exchanges = new HashSet<>();
         try {
             br = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
             return br.lines()
@@ -50,16 +51,16 @@ public class LoadDataService {
         }
     }
 
-    private Set<ExchangeRateEntity> getExchangeRateEntities(Currency currency, AtomicInteger index, Set<ExchangeRateEntity> exchanges, String k) {
+    private Set<ExchangeDto> getExchangeRateEntities(Currency currency, AtomicInteger index, Set<ExchangeDto> exchanges, String k) {
         exchanges.remove(exchanges.size() - 1);
         index.set(index.get() + 1);
         String[] value = k.split(",");
         if (index.get() >= 10) {
             try {
                 BigDecimal rate = value[1].equals(".") ? new BigDecimal(0) : BigDecimal.valueOf(Double.valueOf(value[1]));
-                exchanges.add(new ExchangeRateEntity(currency, rate, getLocalDate(value[0]), value.length > 2 ? value[2] : ""));
+                exchanges.add(new ExchangeDto(currency, rate, getLocalDate(value[0]), value.length > 2 ? value[2] : ""));
             } catch (NumberFormatException ex) {
-                exchanges.add(new ExchangeRateEntity(currency, new BigDecimal(0), getLocalDate(value[0]), value.length > 2 ? value[2] : ""));
+                exchanges.add(new ExchangeDto(currency, new BigDecimal(0), getLocalDate(value[0]), value.length > 2 ? value[2] : ""));
             }
         }
         return exchanges;

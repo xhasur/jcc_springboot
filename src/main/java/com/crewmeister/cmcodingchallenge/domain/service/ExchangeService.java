@@ -1,5 +1,6 @@
 package com.crewmeister.cmcodingchallenge.domain.service;
 
+import com.crewmeister.cmcodingchallenge.domain.dto.ExchangeDto;
 import com.crewmeister.cmcodingchallenge.domain.repository.IExchangeRepository;
 import com.crewmeister.cmcodingchallenge.persistence.ExchangeRepository;
 import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRateEntity;
@@ -48,7 +49,7 @@ public class ExchangeService {
                     Element dtdDescription = tds.get(2).getElementsByAttribute("href").get(0);
                     String currencyName = tds.text().split("=")[1].split("... /")[0].trim();
                     String downloadCsvLink = dtdDescription.attr("href");
-                    Set<ExchangeRateEntity> exchangeRates = this.loadDataService.readExchangeFromCsv(
+                    Set<ExchangeDto> exchangeRates = this.loadDataService.readExchangeFromCsv(
                             downloadCsvLink,
                             this.loadDataService.getCurrency(currencyName));
                     this.exchangeRepository.saveAll(exchangeRates);
@@ -56,16 +57,16 @@ public class ExchangeService {
     }
 
 
-    public List<ExchangeRateEntity> getAllExchangesRates() {
+    public List<ExchangeDto> getAllExchangesRates() {
         return this.exchangeRepository.getAllExchangesRates();
     }
 
-    public List<ExchangeRateEntity> getExchangeRatesForDate(LocalDate date) {
+    public List<ExchangeDto> getExchangeRatesForDate(LocalDate date) {
         return this.exchangeRepository.getExchangeRatesForDate(date);
     }
 
-    public List<ExchangeRateEntity> getEuroConverter(LocalDate date , String currency , BigDecimal amount) {
-        List<ExchangeRateEntity> allRatesByCurrency = this.exchangeRepository.getEuroConverter(date, this.loadDataService.getCurrency(currency));
+    public List<ExchangeDto> getEuroConverter(LocalDate date , String currency , BigDecimal amount) {
+        List<ExchangeDto> allRatesByCurrency = this.exchangeRepository.getEuroConverter(date, this.loadDataService.getCurrency(currency));
         if(!allRatesByCurrency.isEmpty()){
             allRatesByCurrency.forEach(rate -> rate.setRate(rate.getRate().multiply(amount)));
             return allRatesByCurrency;

@@ -1,6 +1,7 @@
 package com.crewmeister.cmcodingchallenge.domain.service;
 
 import com.crewmeister.cmcodingchallenge.domain.dto.CurrencyConversionRates;
+import com.crewmeister.cmcodingchallenge.domain.dto.CurrencyDto;
 import com.crewmeister.cmcodingchallenge.domain.repository.ICurrencyRepository;
 import com.crewmeister.cmcodingchallenge.persistence.entity.CurrencyEntity;
 import org.apache.logging.log4j.LogManager;
@@ -31,15 +32,10 @@ public class CurrencyService {
         this.loadDataService = loadDataService;
     }
 
-    public List<CurrencyConversionRates> getCurrencies() {
-        ArrayList<CurrencyConversionRates> currencyConversionRates = new ArrayList<CurrencyConversionRates>();
-        currencyConversionRates.add(new CurrencyConversionRates(2.5));
-        return currencyConversionRates;
-    }
     @Transactional
     public void loadCurrencies() {
         LOGGER.info("loadCurrencies");
-        Set<CurrencyEntity> currencies = new HashSet<>();
+        Set<CurrencyDto> currencies = new HashSet<>();
         Document doc = this.loadDataService.getBankdocument(url);
         doc.select("table tbody tr")
                 .parallelStream()
@@ -50,14 +46,14 @@ public class CurrencyService {
                         Element dtdDescription = tds.get(1);
                         String currencyName = dtdDescription.text().split("=")[1].split("... /")[0].trim();
                         Currency currency = Currency.getInstance(currencyName);
-                        currencies.add(new CurrencyEntity(currency));
+                        currencies.add(new CurrencyDto(currency));
         }));
         if(!currencies.isEmpty()){
             this.currencyRepository.saveAll(currencies);
         }
     }
 
-    public List<CurrencyEntity> getAllCurrencies() {
+    public List<CurrencyDto> getAllCurrencies() {
         return this.currencyRepository.getCurrencies();
     }
 

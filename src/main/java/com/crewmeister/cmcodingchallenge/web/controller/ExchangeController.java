@@ -1,7 +1,7 @@
 package com.crewmeister.cmcodingchallenge.web.controller;
 
+import com.crewmeister.cmcodingchallenge.domain.dto.ExchangeDto;
 import com.crewmeister.cmcodingchallenge.domain.service.ExchangeService;
-import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRateEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController()
@@ -30,13 +29,13 @@ public class ExchangeController {
 
 
     @GetMapping("/currencyexchanges")
-    public ResponseEntity<List<ExchangeRateEntity>> getAllCurrenciesExchanges() {
+    public ResponseEntity<List<ExchangeDto>> getAllCurrenciesExchanges() {
         LOGGER.info("ExchangeController::getAllCurrencies");
         return new ResponseEntity<>(exchangeService.getAllExchangesRates(), HttpStatus.OK);
     }
 
     @GetMapping("/exchangerates/{date}")
-    public ResponseEntity<List<ExchangeRateEntity>> getExchangeRatesForDate(@PathVariable("date")
+    public ResponseEntity<List<ExchangeDto>> getExchangeRatesForDate(@PathVariable("date")
                                                                             @DateTimeFormat(pattern = "yyyy-MM-dd")
                                                                             @Validated LocalDate date) {
         LOGGER.info("ExchangeController::getExchangeRatesForDate");
@@ -46,11 +45,11 @@ public class ExchangeController {
 
 
     @GetMapping("/euroconverter/{date}/")
-    public ResponseEntity<List<ExchangeRateEntity>> getEuroConverter(@PathVariable("date")
+    public ResponseEntity<List<ExchangeDto>> getEuroConverter(@PathVariable("date")
                                                                      @DateTimeFormat(pattern = "yyyy-MM-dd")
                                                                      @Validated LocalDate date,
-                                                                     @RequestParam(value = "currency", required = true) String currency,
-                                                                     @RequestParam(value = "amount", required = true) BigDecimal amount) {
+                                                              @RequestParam(value = "currency", required = true) String currency,
+                                                              @RequestParam(value = "amount", required = true) BigDecimal amount) {
 
         LOGGER.info("ExchangeController::getEuroConverter");
         return new ResponseEntity<>(exchangeService.getEuroConverter(date, currency.toUpperCase(), amount), HttpStatus.OK);

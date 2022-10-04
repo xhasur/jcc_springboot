@@ -1,8 +1,8 @@
 package com.crewmeister.cmcodingchallenge.web.controller;
 
+import com.crewmeister.cmcodingchallenge.domain.dto.CurrencyDto;
 import com.crewmeister.cmcodingchallenge.domain.service.CurrencyService;
 import com.crewmeister.cmcodingchallenge.domain.service.ExchangeService;
-import com.crewmeister.cmcodingchallenge.persistence.entity.CurrencyEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class CurrencyController {
     }
 
     @GetMapping("/currencies")
-    public ResponseEntity<List<CurrencyEntity>> getCurrencies() {
+    public ResponseEntity<List<CurrencyDto>> getCurrencies() {
         LOGGER.info("CurrencyController::getCurrencies");
         return new ResponseEntity<>(currencyService.getAllCurrencies(), HttpStatus.OK);
     }

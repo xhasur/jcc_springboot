@@ -1,6 +1,5 @@
 package com.crewmeister.cmcodingchallenge.persistence.crud;
 
-import com.crewmeister.cmcodingchallenge.persistence.ExchangeRepository;
 import com.crewmeister.cmcodingchallenge.persistence.entity.ExchangeRateEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
